@@ -1,7 +1,10 @@
 import { createHash, randomBytes } from "node:crypto";
 
 const FIELD_PRIME = BigInt("170141183460469231731687303715884105727");
-const GROUP_ORDER = FIELD_PRIME - 1n;
+const BIGINT_ZERO = BigInt(0);
+const BIGINT_ONE = BigInt(1);
+const BIGINT_TWO = BigInt(2);
+const GROUP_ORDER = FIELD_PRIME - BIGINT_ONE;
 const DEFAULT_TIMESTAMP_WINDOW_MS = 30_000;
 
 export type TAState = {
@@ -80,23 +83,23 @@ export type SessionKeyResult = {
 
 const mod = (value: bigint, p: bigint = FIELD_PRIME): bigint => {
   const result = value % p;
-  return result >= 0n ? result : result + p;
+  return result >= BIGINT_ZERO ? result : result + p;
 };
 
 const compatibleG2Cache = new WeakMap<TAState, bigint>();
 
 const modPow = (base: bigint, exponent: bigint, p: bigint = FIELD_PRIME): bigint => {
-  let result = 1n;
+  let result = BIGINT_ONE;
   let currentBase = mod(base, p);
   let currentExponent = exponent;
 
-  while (currentExponent > 0n) {
-    if ((currentExponent & 1n) === 1n) {
+  while (currentExponent > BIGINT_ZERO) {
+    if ((currentExponent & BIGINT_ONE) === BIGINT_ONE) {
       result = mod(result * currentBase, p);
     }
 
     currentBase = mod(currentBase * currentBase, p);
-    currentExponent >>= 1n;
+    currentExponent >>= BIGINT_ONE;
   }
 
   return result;
@@ -115,7 +118,7 @@ export const hashToBigInt = (value: string): bigint => {
 };
 
 const randomScalar = (): bigint => {
-  return mod(BigInt(`0x${randomBytes(32).toString("hex")}`), GROUP_ORDER - 1n) + 1n;
+  return mod(BigInt(`0x${randomBytes(32).toString("hex")}`), GROUP_ORDER - BIGINT_ONE) + BIGINT_ONE;
 };
 
 const keyFromXor = (left: bigint, middle: bigint, right: bigint): bigint => {
@@ -127,7 +130,7 @@ const toHex64 = (value: bigint): string => {
 };
 
 const u1Exponent = (ta: TAState): bigint => {
-  return mod(ta.a + 2n * ta.t, GROUP_ORDER);
+  return mod(ta.a + BIGINT_TWO * ta.t, GROUP_ORDER);
 };
 
 export const generateCompatibleG2 = (ta: TAState): bigint => {
@@ -152,9 +155,9 @@ export const initializeTA = (): TAState => {
     a,
     t,
     g1,
-    g2: 1n,
+    g2: BIGINT_ONE,
     g3,
-    x: 1n,
+    x: BIGINT_ONE,
     fieldPrime: FIELD_PRIME,
     bilinearMap: "e: G1 x G2 -> Gt",
   });
@@ -179,7 +182,7 @@ export const registerDoctor = (
   const d1Scalar = hashToGroupScalar(input.d1);
   const d1KeyExponent = mod(ta.a + d1Scalar, GROUP_ORDER);
   const d2Exponent = mod(ta.a - d1Scalar + ta.t, GROUP_ORDER);
-  const d3Exponent = mod(2n * ta.a + ta.t, GROUP_ORDER);
+  const d3Exponent = mod(BIGINT_TWO * ta.a + ta.t, GROUP_ORDER);
 
   return {
     d1: input.d1,
