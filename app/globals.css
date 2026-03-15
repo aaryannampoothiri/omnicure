@@ -1,0 +1,418 @@
+@import "tailwindcss";
+
+:root {
+  /* ── Cureva extracted palette (from token fallbacks) ── */
+  --primary:           #057C8B;
+  --primary-hover:     #046D7A;
+  --primary-light:     #E8F3F5;
+  --primary-medium:    #CBE2E6;
+  --accent:            #FF833B;
+  --background:        #FFFFFF;
+  --surface:           #FAFAFA;
+  --surface-alt:       #F3F3F3;
+  --border:            #E7E7E7;
+  --border-strong:     #D7D7D7;
+  --text-heading:      #0D0D0D;
+  --text-body:         #5E5E5E;
+  --text-muted:        #787878;
+  --success:           #057C8B;
+  --danger:            #DC2626;
+  --warning:           #D97706;
+
+  /* ── Legacy aliases (existing pages reference these) ── */
+  --foreground:        #0B1E17;
+  --surface-secondary: #F5FAF7;
+  --border-subtle:     #E7E7E7;
+  --action-primary:    #057C8B;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--text-heading);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: var(--background);
+  color: var(--text-body);
+  font-family: var(--font-inter), system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+html,
+body {
+  font-size: 15px;
+  scroll-behavior: smooth;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Remove all focus rings globally */
+*:focus,
+*:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+  outline-color: transparent !important;
+  --tw-ring-shadow: 0 0 #0000 !important;
+  --tw-ring-offset-shadow: 0 0 #0000 !important;
+  --tw-ring-color: transparent !important;
+  --tw-ring-offset-color: transparent !important;
+}
+
+*:focus-within {
+  outline: none !important;
+  box-shadow: none !important;
+  outline-color: transparent !important;
+  --tw-ring-shadow: 0 0 #0000 !important;
+  --tw-ring-offset-shadow: 0 0 #0000 !important;
+  --tw-ring-color: transparent !important;
+  --tw-ring-offset-color: transparent !important;
+}
+
+/* Guard against browser-specific focus rings on interactive elements */
+a:focus,
+a:focus-visible,
+a:-moz-focusring,
+button:focus,
+button:focus-visible,
+button:-moz-focusring,
+input:focus,
+input:focus-visible,
+input:-moz-focusring,
+select:focus,
+select:focus-visible,
+select:-moz-focusring,
+textarea:focus,
+textarea:focus-visible,
+textarea:-moz-focusring {
+  outline: none !important;
+  box-shadow: none !important;
+  outline-color: transparent !important;
+  --tw-ring-shadow: 0 0 #0000 !important;
+  --tw-ring-offset-shadow: 0 0 #0000 !important;
+  --tw-ring-color: transparent !important;
+  --tw-ring-offset-color: transparent !important;
+}
+
+/* Hide scrollbar while keeping scroll functionality */
+.topbar-nav {
+  scrollbar-width: none;
+}
+.topbar-nav::-webkit-scrollbar {
+  display: none;
+}
+
+.app-shell {
+  background: var(--background);
+}
+
+.app-shell::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  background:
+    radial-gradient(72rem 42rem at -8% -20%, rgb(5 124 139 / 0.1), transparent 60%),
+    radial-gradient(66rem 38rem at 112% -12%, rgb(255 131 59 / 0.08), transparent 58%),
+    linear-gradient(180deg, #ffffff 0%, #fafafa 100%);
+}
+
+.glass-panel {
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow:
+    0px 0px 15px 0px rgb(6 125 140 / 0.05),
+    0px 0.597px 1.314px -1px rgb(6 125 140 / 0.35),
+    0px 1.811px 3.984px -2px rgb(6 125 140 / 0.33),
+    0px 4.787px 10.531px -3px rgb(6 125 140 / 0.27),
+    0px 15px 33px -4px rgb(6 125 140 / 0.09);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.glass-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(120deg, transparent 0%, rgb(5 124 139 / 0.05) 50%, transparent 100%);
+  background-size: 200% 100%;
+}
+
+.glass-panel:hover {
+  transform: translateY(-2px);
+}
+
+.glass-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  transition: transform 0.24s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.24s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Hard global surface styling so legacy pages visibly match Cureva */
+input,
+select,
+textarea {
+  border-radius: 12px;
+  border-color: var(--border) !important;
+  color: var(--text-heading) !important;
+  background: #fff !important;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--text-muted) !important;
+}
+
+input:hover,
+select:hover,
+textarea:hover {
+  border-color: var(--border-strong) !important;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--border) !important;
+  box-shadow: none !important;
+}
+
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+button:focus,
+button:focus-visible,
+a:focus,
+a:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Remove mobile/WebKit tap and autofill glow effects that look like random rings */
+a,
+button,
+input,
+select,
+textarea {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-focus-ring-color: transparent;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 1000px #fff inset !important;
+  box-shadow: 0 0 0 1000px #fff inset !important;
+  -webkit-text-fill-color: var(--text-heading) !important;
+}
+
+table {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+thead {
+  background: #fff;
+}
+
+th {
+  color: var(--text-muted) !important;
+  font-weight: 600;
+}
+
+td {
+  color: var(--text-body) !important;
+}
+
+[class*="rounded-xl"][class*="border"][class*="bg-white"],
+[class*="rounded-lg"][class*="border"][class*="bg-white"] {
+  box-shadow:
+    0px 0px 15px 0px rgb(6 125 140 / 0.04),
+    0px 4.787px 10.531px -3px rgb(6 125 140 / 0.15);
+  transition: transform 0.24s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.24s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+[class*="rounded-xl"][class*="border"][class*="bg-white"]:hover,
+[class*="rounded-lg"][class*="border"][class*="bg-white"]:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0px 0px 15px 0px rgb(6 125 140 / 0.05),
+    0px 15px 33px -4px rgb(6 125 140 / 0.14);
+}
+
+/* Override legacy Tailwind slate palette app-wide */
+.text-slate-900 { color: var(--text-heading) !important; }
+.text-slate-800 { color: var(--text-heading) !important; }
+.text-slate-700 { color: var(--text-body) !important; }
+.text-slate-600 { color: var(--text-body) !important; }
+.text-slate-500 { color: var(--text-muted) !important; }
+.text-slate-400 { color: var(--text-muted) !important; }
+.bg-slate-50 { background-color: var(--surface) !important; }
+.bg-slate-100 { background-color: var(--surface-alt) !important; }
+.placeholder-slate-400::placeholder { color: var(--text-muted) !important; }
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--primary);
+  flex-shrink: 0;
+  animation: pulseStatus 1.8s ease-in-out infinite;
+}
+
+.status-dot.critical {
+  background: var(--danger);
+}
+
+.status-pill {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-body);
+}
+
+.ui-header {
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--text-heading);
+}
+
+.ui-label {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.ui-mono {
+  font-size: 0.75rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+.label-caps {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: #ffffff;
+  border: 1px solid var(--primary);
+  border-radius: 10px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  padding: 0.5rem 1.25rem;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+}
+
+.btn-primary:hover {
+  background: var(--primary-hover);
+  border-color: var(--primary-hover);
+  box-shadow: 0 8px 18px -10px rgb(6 125 140 / 0.8);
+}
+
+.btn-primary:active {
+  transform: translateY(1px);
+}
+
+.btn-primary:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  background: #ffffff;
+  color: var(--text-heading);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  padding: 0.5rem 1.25rem;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+}
+
+.btn-secondary:hover {
+  background: var(--surface);
+  border-color: var(--border-strong);
+}
+
+.btn-secondary:active {
+  transform: translateY(1px);
+}
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgb(11 30 23 / 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--border);
+  border-top-color: var(--primary);
+  border-radius: 999px;
+  animation: spin 0.9s linear infinite;
+  flex-shrink: 0;
+}
+
+.page-slate {
+  background: var(--surface);
+}
+
+.surf-background {
+  background:
+    radial-gradient(70rem 40rem at -10% -20%, rgb(5 124 139 / 0.08), transparent 60%),
+    radial-gradient(60rem 35rem at 110% 0%, rgb(5 124 139 / 0.06), transparent 60%),
+    var(--surface);
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulseStatus {
+  0%   { transform: scale(1);   opacity: 0.7; }
+  50%  { transform: scale(1.3); opacity: 1;   }
+  100% { transform: scale(1);   opacity: 0.7; }
+}
+
+@keyframes surfFloat {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-4px); }
+  100% { transform: translateY(0px); }
+}
+
+@keyframes surfSweep {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}

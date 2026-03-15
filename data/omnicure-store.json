@@ -1,0 +1,216 @@
+{
+  "users": [
+    {
+      "id": "aa",
+      "name": "aa",
+      "email": "aa@gmail.com",
+      "role": "patient",
+      "password": "aa"
+    },
+    {
+      "id": "24MEI10080",
+      "name": "Aaryan",
+      "email": "aaryannamboothiri@gmail.com",
+      "role": "patient",
+      "password": "aaryan@2006"
+    },
+    {
+      "id": "aar",
+      "name": "aar",
+      "email": "aar@gmail.cpm",
+      "role": "doctor",
+      "password": "aar",
+      "linkedPatientIds": [
+        "aa",
+        "24MEI10080"
+      ]
+    },
+    {
+      "id": "ray_dr",
+      "name": "Dr.Ray",
+      "email": "ray@gmail.com",
+      "role": "doctor",
+      "password": "ray2025",
+      "linkedPatientIds": [
+        "24MEI10080",
+        "25100"
+      ]
+    },
+    {
+      "id": "25100",
+      "name": "Aaryan",
+      "email": "aaryan@gmail.com",
+      "role": "patient",
+      "password": "aar"
+    }
+  ],
+  "patients": [
+    {
+      "id": "aa",
+      "name": "Aaryan",
+      "age": 21,
+      "heightCm": 170,
+      "weightKg": 70,
+      "condition": "General remote monitoring",
+      "nextMedicationDue": "2026-03-15T07:30:00.000Z",
+      "health": {
+        "bloodPressure": "120/80",
+        "sugarMgDl": 110,
+        "heartRateBpm": 76,
+        "spo2": 98,
+        "activityScore": 70
+      },
+      "devices": [],
+      "advice": [],
+      "prescriptions": [],
+      "medications": [
+        {
+          "id": "med-1773570177824-bafdc",
+          "taken": false,
+          "takenAt": null,
+          "medicine": "Dolo",
+          "dueAt": "2026-03-15T07:30:00.000Z"
+        }
+      ],
+      "careMedications": [
+        {
+          "id": "care-med-dolo-1",
+          "medicine": "Dolo",
+          "dosage": "650",
+          "frequency": "1-1-0-1",
+          "status": "ongoing",
+          "prescribedBy": "Aa",
+          "startedAt": "2026-03-15",
+          "endedAt": null,
+          "notes": ""
+        }
+      ],
+      "medicalHistory": [],
+      "labReports": [],
+      "dailyVitals": [
+        {
+          "id": "dv-1773512360074-daa47",
+          "recordedAt": "2026-03-14T18:19:20.072Z",
+          "heartRateBpm": 76,
+          "spo2": 98,
+          "sugarMgDl": 110,
+          "bloodPressure": "120/80",
+          "temperatureC": 36.8
+        }
+      ],
+      "weeklyVitals": [
+        {
+          "id": "wv-1773512360074-85e06",
+          "weekLabel": "Current Week",
+          "averageHeartRateBpm": 76,
+          "averageSpo2": 98,
+          "averageSugarMgDl": 110,
+          "averageSystolic": 120,
+          "averageDiastolic": 80,
+          "adherencePercent": 100
+        }
+      ]
+    },
+    {
+      "id": "24MEI10080",
+      "name": "Aaryan",
+      "age": 21,
+      "heightCm": 170,
+      "weightKg": 60,
+      "condition": "",
+      "nextMedicationDue": "",
+      "health": {
+        "bloodPressure": "",
+        "sugarMgDl": 0,
+        "heartRateBpm": 0,
+        "spo2": 0,
+        "activityScore": 0
+      },
+      "devices": [],
+      "advice": [],
+      "prescriptions": [],
+      "medications": [],
+      "careMedications": [],
+      "medicalHistory": [],
+      "labReports": [],
+      "dailyVitals": [],
+      "weeklyVitals": []
+    },
+    {
+      "id": "25100",
+      "name": "Aaryan",
+      "age": 21,
+      "heightCm": 170,
+      "weightKg": 60,
+      "condition": "",
+      "nextMedicationDue": "2026-03-15T07:30:00.000Z",
+      "health": {
+        "bloodPressure": "",
+        "sugarMgDl": 0,
+        "heartRateBpm": 0,
+        "spo2": 0,
+        "activityScore": 0
+      },
+      "devices": [],
+      "advice": [],
+      "prescriptions": [],
+      "medications": [
+        {
+          "id": "med-1773572225059-7065c",
+          "taken": false,
+          "takenAt": null,
+          "medicine": "Dolo 650",
+          "dueAt": "2026-03-15T20:30:00.000Z"
+        },
+        {
+          "id": "med-1773572219054-825dd",
+          "taken": false,
+          "takenAt": null,
+          "medicine": "Dolo 650",
+          "dueAt": "2026-03-15T13:00:00.000Z"
+        },
+        {
+          "id": "med-1773572207515-50032",
+          "taken": false,
+          "takenAt": null,
+          "medicine": "Dolo 650",
+          "dueAt": "2026-03-15T07:30:00.000Z"
+        }
+      ],
+      "careMedications": [],
+      "medicalHistory": [
+        {
+          "title": "Fever",
+          "category": "visit",
+          "recordedOn": "2026-03-15",
+          "details": "High Fever"
+        }
+      ],
+      "labReports": [
+        {
+          "name": "Regular Checkup",
+          "collectedOn": "2026-03-15",
+          "tests": [
+            {
+              "id": "89a367ca-5f40-4391-a2dd-7314fa7c9b27",
+              "testName": "Sugar",
+              "result": "80",
+              "note": "Optimal"
+            }
+          ]
+        }
+      ],
+      "dailyVitals": [
+        {
+          "recordedAt": "2026-03-15T16:27",
+          "heartRateBpm": 89,
+          "spo2": 97,
+          "sugarMgDl": 80,
+          "bloodPressure": "120/80",
+          "temperatureC": 98
+        }
+      ],
+      "weeklyVitals": []
+    }
+  ]
+}
