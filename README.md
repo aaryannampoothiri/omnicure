@@ -1,5 +1,7 @@
 # OmniCure — Secure Healthcare Portal
 
+Vercel Deployment: omnicure-one.vercel.app
+
 A full-stack web application for secure patient-doctor data sharing, built with Next.js 16 and enforcing cryptographic mutual authentication via Elliptic Curve Cryptography (ECC) and Bilinear Pairing. Patients manage their own health records; doctors access patient data through a cryptographically verified secure channel.
 
 ---
@@ -68,7 +70,7 @@ npm run start
 npm run lint
 ```
 
-### Demo Credentials (Hackathon)
+### Demo Credentials 
 
 Use the seeded accounts below to test both portals immediately:
 
