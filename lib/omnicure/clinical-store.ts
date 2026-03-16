@@ -159,7 +159,11 @@ type StoreSnapshot = {
   patients: PatientRecord[];
 };
 
-const STORE_FILE_PATH = path.join(process.cwd(), "data", "omnicure-store.json");
+const BUNDLED_STORE_FILE_PATH = path.join(process.cwd(), "data", "omnicure-store.json");
+const RUNTIME_STORE_FILE_PATH =
+  process.env.VERCEL === "1"
+    ? path.join("/tmp", "omnicure-store.json")
+    : BUNDLED_STORE_FILE_PATH;
 
 const users: UserRecord[] = [];
 
@@ -191,6 +195,26 @@ const createEmptyPatientRecord = (id: string, name: string): PatientRecord => ({
 
 const patients = new Map<string, PatientRecord>();
 
+const ensureRuntimeStoreFile = () => {
+  if (existsSync(RUNTIME_STORE_FILE_PATH)) {
+    return;
+  }
+
+  if (existsSync(BUNDLED_STORE_FILE_PATH)) {
+    mkdirSync(path.dirname(RUNTIME_STORE_FILE_PATH), { recursive: true });
+    const initialPayload = readFileSync(BUNDLED_STORE_FILE_PATH, "utf-8");
+    writeFileSync(RUNTIME_STORE_FILE_PATH, initialPayload, "utf-8");
+    return;
+  }
+
+  mkdirSync(path.dirname(RUNTIME_STORE_FILE_PATH), { recursive: true });
+  writeFileSync(
+    RUNTIME_STORE_FILE_PATH,
+    JSON.stringify({ users: [], patients: [] }, null, 2),
+    "utf-8",
+  );
+};
+
 const makeId = (prefix: string) => `${prefix}-${Date.now()}-${Math.random().toString(16).slice(2, 7)}`;
 
 const getNextUntakenDue = (medications: MedicationLog[]): string => {
@@ -205,19 +229,17 @@ const saveStoreSnapshot = () => {
     patients: Array.from(patients.values()),
   };
 
-  mkdirSync(path.dirname(STORE_FILE_PATH), { recursive: true });
-  writeFileSync(STORE_FILE_PATH, JSON.stringify(payload, null, 2), "utf-8");
+  mkdirSync(path.dirname(RUNTIME_STORE_FILE_PATH), { recursive: true });
+  writeFileSync(RUNTIME_STORE_FILE_PATH, JSON.stringify(payload, null, 2), "utf-8");
 };
 
 const isDemoUser = (user: UserRecord) => user.email.endsWith("@omnicure.demo");
 
 const loadStoreSnapshot = () => {
-  if (!existsSync(STORE_FILE_PATH)) {
-    return;
-  }
+  ensureRuntimeStoreFile();
 
   try {
-    const raw = readFileSync(STORE_FILE_PATH, "utf-8");
+    const raw = readFileSync(RUNTIME_STORE_FILE_PATH, "utf-8");
     const parsed = JSON.parse(raw) as Partial<StoreSnapshot>;
 
     if (!Array.isArray(parsed.users) || !Array.isArray(parsed.patients)) {
