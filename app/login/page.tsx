@@ -11,6 +11,17 @@ type LoginResponse = {
   needsProfileSetup?: boolean;
 };
 
+const DEMO_CREDENTIALS = {
+  doctor: {
+    id: "demo_doc",
+    password: "demo123",
+  },
+  patient: {
+    id: "demo_patient",
+    password: "demo123",
+  },
+} as const;
+
 const DoctorIcon = () => (
   <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.8">
     <circle cx="6" cy="5" r="2" />
@@ -43,6 +54,13 @@ export default function LoginPage() {
 
   const handleRoleChange = (nextRole: "patient" | "doctor") => {
     setRole(nextRole);
+  };
+
+  const autofillDemo = (nextRole: "patient" | "doctor") => {
+    setRole(nextRole);
+    setId(DEMO_CREDENTIALS[nextRole].id);
+    setPassword(DEMO_CREDENTIALS[nextRole].password);
+    setError("");
   };
 
   const handleSubmit = async (event: FormEvent) => {
@@ -173,6 +191,36 @@ export default function LoginPage() {
             >
               Register
             </button>
+          </div>
+
+          <div className="mt-5 rounded-xl border border-[var(--border)] bg-[var(--surface)] p-3">
+            <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[var(--text-muted)]">Demo Credentials</p>
+            <div className="mt-2 grid gap-2">
+              <div className="rounded-lg border border-[var(--border)] bg-white p-2 text-xs text-[var(--text-body)]">
+                <p className="font-semibold text-[var(--text-heading)]">Doctor</p>
+                <p>ID: demo_doc</p>
+                <p>Password: demo123</p>
+                <button
+                  type="button"
+                  onClick={() => autofillDemo("doctor")}
+                  className="mt-1 text-[11px] font-semibold text-[var(--primary)] hover:text-[var(--primary-hover)]"
+                >
+                  Use doctor demo
+                </button>
+              </div>
+              <div className="rounded-lg border border-[var(--border)] bg-white p-2 text-xs text-[var(--text-body)]">
+                <p className="font-semibold text-[var(--text-heading)]">Patient</p>
+                <p>ID: demo_patient</p>
+                <p>Password: demo123</p>
+                <button
+                  type="button"
+                  onClick={() => autofillDemo("patient")}
+                  className="mt-1 text-[11px] font-semibold text-[var(--primary)] hover:text-[var(--primary-hover)]"
+                >
+                  Use patient demo
+                </button>
+              </div>
+            </div>
           </div>
         </section>
       </div>

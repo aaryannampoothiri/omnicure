@@ -42,6 +42,23 @@
       "email": "aaryan@gmail.com",
       "role": "patient",
       "password": "aar"
+    },
+    {
+      "id": "demo_doc",
+      "name": "Demo Doctor",
+      "email": "demo.doctor@example.com",
+      "role": "doctor",
+      "password": "demo123",
+      "linkedPatientIds": [
+        "demo_patient"
+      ]
+    },
+    {
+      "id": "demo_patient",
+      "name": "Demo Patient",
+      "email": "demo.patient@example.com",
+      "role": "patient",
+      "password": "demo123"
     }
   ],
   "patients": [
@@ -211,6 +228,160 @@
         }
       ],
       "weeklyVitals": []
+    },
+    {
+      "id": "demo_patient",
+      "name": "Demo Patient",
+      "age": 34,
+      "heightCm": 172,
+      "weightKg": 74,
+      "condition": "Type 2 diabetes with hypertension monitoring",
+      "nextMedicationDue": "2026-03-16T20:30:00.000Z",
+      "health": {
+        "bloodPressure": "128/84",
+        "sugarMgDl": 136,
+        "heartRateBpm": 78,
+        "spo2": 98,
+        "activityScore": 76
+      },
+      "devices": [
+        {
+          "id": "device-demo-001",
+          "name": "Smart BP Monitor",
+          "model": "BPM-X2",
+          "identifier": "BP-DEMO-1001",
+          "connectionType": "bluetooth",
+          "connected": true,
+          "lastSyncedAt": "2026-03-16T13:20:00.000Z"
+        }
+      ],
+      "advice": [
+        {
+          "id": "advice-demo-001",
+          "doctorName": "Demo Doctor",
+          "note": "Continue evening walk for at least 30 minutes.",
+          "createdAt": "2026-03-16T09:30:00.000Z"
+        }
+      ],
+      "prescriptions": [
+        {
+          "id": "rx-demo-001",
+          "medicine": "Metformin",
+          "dosage": "500 mg",
+          "frequency": "1 - 0 - 1 - 0",
+          "startDate": "2026-03-10",
+          "endDate": "2026-04-10"
+        }
+      ],
+      "medications": [
+        {
+          "id": "med-demo-001",
+          "medicine": "Metformin",
+          "dueAt": "2026-03-16T07:30:00.000Z",
+          "taken": true,
+          "takenAt": "2026-03-16T07:35:00.000Z"
+        },
+        {
+          "id": "med-demo-002",
+          "medicine": "Amlodipine",
+          "dueAt": "2026-03-16T20:30:00.000Z",
+          "taken": false,
+          "takenAt": null
+        }
+      ],
+      "careMedications": [
+        {
+          "id": "care-demo-001",
+          "medicine": "Metformin",
+          "dosage": "500 mg",
+          "frequency": "1 - 0 - 1 - 0",
+          "status": "ongoing",
+          "prescribedBy": "Demo Doctor",
+          "startedAt": "2026-03-10",
+          "endedAt": null,
+          "notes": "Take after meals"
+        },
+        {
+          "id": "care-demo-002",
+          "medicine": "Atorvastatin",
+          "dosage": "10 mg",
+          "frequency": "0 - 0 - 0 - 1",
+          "status": "previous",
+          "prescribedBy": "Demo Doctor",
+          "startedAt": "2026-02-01",
+          "endedAt": "2026-03-01",
+          "notes": "Completed 1 month course"
+        }
+      ],
+      "medicalHistory": [
+        {
+          "id": "history-demo-001",
+          "title": "Type 2 Diabetes",
+          "category": "condition",
+          "recordedOn": "2023-08-12",
+          "details": "Diagnosed during annual health screening"
+        },
+        {
+          "id": "history-demo-002",
+          "title": "Hypertension Follow-up",
+          "category": "visit",
+          "recordedOn": "2026-03-12",
+          "details": "BP remains stable with current medication"
+        }
+      ],
+      "labReports": [
+        {
+          "id": "lab-demo-001",
+          "name": "Quarterly Metabolic Panel",
+          "collectedOn": "2026-03-11",
+          "tests": [
+            {
+              "id": "lab-test-demo-001",
+              "testName": "HbA1c",
+              "result": "6.8%",
+              "note": "Slightly above target"
+            },
+            {
+              "id": "lab-test-demo-002",
+              "testName": "Fasting Glucose",
+              "result": "118 mg/dL",
+              "note": "Borderline high"
+            }
+          ]
+        }
+      ],
+      "dailyVitals": [
+        {
+          "id": "dv-demo-001",
+          "recordedAt": "2026-03-16T07:20:00.000Z",
+          "heartRateBpm": 77,
+          "spo2": 98,
+          "sugarMgDl": 132,
+          "bloodPressure": "126/82",
+          "temperatureC": 36.7
+        },
+        {
+          "id": "dv-demo-002",
+          "recordedAt": "2026-03-16T19:45:00.000Z",
+          "heartRateBpm": 79,
+          "spo2": 98,
+          "sugarMgDl": 140,
+          "bloodPressure": "128/84",
+          "temperatureC": 36.8
+        }
+      ],
+      "weeklyVitals": [
+        {
+          "id": "wv-demo-001",
+          "weekLabel": "Week 11",
+          "averageHeartRateBpm": 78,
+          "averageSpo2": 98,
+          "averageSugarMgDl": 134,
+          "averageSystolic": 127,
+          "averageDiastolic": 83,
+          "adherencePercent": 92
+        }
+      ]
     }
   ]
 }

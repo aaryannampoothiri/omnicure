@@ -68,6 +68,22 @@ npm run start
 npm run lint
 ```
 
+### Demo Credentials (Hackathon)
+
+Use the seeded accounts below to test both portals immediately:
+
+| Role | ID / Username | Password |
+|------|----------------|----------|
+| Doctor | `demo_doc` | `demo123` |
+| Patient | `demo_patient` | `demo123` |
+
+Quick transfer demo flow:
+
+1. Login as **Doctor** (`demo_doc` / `demo123`)
+2. Open **Doctor → Patients** and select **demo_patient**
+3. Continue to transfer and open the patient detail page
+4. Verify daily vitals, weekly stats, medications, history, and lab report data are available
+
 ---
 
 ## Project Structure
