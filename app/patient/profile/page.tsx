@@ -1,7 +1,6 @@
 ﻿"use client";
 
 import { useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
 import { fetchPatientOverview, type PatientOverview } from "@/app/components/patient-api";
 import { getSession } from "@/app/components/session-utils";
 
@@ -20,13 +19,14 @@ const emptyForm: ProfileForm = {
 };
 
 export default function PatientProfilePage() {
-  const searchParams = useSearchParams();
-  const isSetupFlow = searchParams.get("setup") === "1";
+  const [isSetupFlow, setIsSetupFlow] = useState(false);
   const [overview, setOverview] = useState<PatientOverview | null>(null);
   const [form, setForm] = useState<ProfileForm>(emptyForm);
   const [status, setStatus] = useState("");
 
   useEffect(() => {
+    setIsSetupFlow(new URLSearchParams(window.location.search).get("setup") === "1");
+
     const session = getSession();
     if (!session) {
       return;

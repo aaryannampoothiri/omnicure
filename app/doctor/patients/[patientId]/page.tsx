@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { useParams, useSearchParams } from "next/navigation";
+import { useParams } from "next/navigation";
 import { getSession } from "@/app/components/session-utils";
 import type { PatientOverview } from "@/app/components/patient-api";
 
@@ -16,7 +16,6 @@ type SecureSyncResult = {
 
 export default function DoctorPatientDetailPage() {
   const params = useParams<{ patientId: string }>();
-  const searchParams = useSearchParams();
   const [result, setResult] = useState<SecureSyncResult | null>(null);
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState("Preparing transfer...");
@@ -33,13 +32,21 @@ export default function DoctorPatientDetailPage() {
     note: "",
   });
 
-  const showDaily = searchParams.get("daily") !== "0";
-  const showWeekly = searchParams.get("weekly") !== "0";
-  const showRecords = searchParams.get("records") !== "0";
+  const queryParam = (key: string) => {
+    if (typeof window === "undefined") {
+      return null;
+    }
+
+    return new URLSearchParams(window.location.search).get(key);
+  };
+
+  const showDaily = queryParam("daily") !== "0";
+  const showWeekly = queryParam("weekly") !== "0";
+  const showRecords = queryParam("records") !== "0";
 
   useEffect(() => {
     const session = getSession();
-    const queryDoctorId = searchParams.get("doctorId")?.trim() ?? "";
+    const queryDoctorId = queryParam("doctorId")?.trim() ?? "";
     const doctorId = session?.id ?? queryDoctorId;
     if (!doctorId) {
       setLoading(false);
@@ -87,7 +94,7 @@ export default function DoctorPatientDetailPage() {
     loadPatient().catch(() => {
       setLoading(false);
     });
-  }, [params.patientId, searchParams]);
+  }, [params.patientId]);
 
   const ongoingMeds = useMemo(
     () => {

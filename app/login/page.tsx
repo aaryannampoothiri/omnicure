@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { FormEvent, useEffect, useState } from "react";
 
 type LoginResponse = {
@@ -29,7 +29,6 @@ const PatientIcon = () => (
 
 export default function LoginPage() {
   const router = useRouter();
-  const params = useSearchParams();
 
   useEffect(() => {
     router.prefetch("/patient");
@@ -82,7 +81,7 @@ export default function LoginPage() {
         }),
       );
 
-      const nextParam = params.get("next");
+      const nextParam = new URLSearchParams(window.location.search).get("next");
       const destination = nextParam
         || (data.role === "patient" && data.needsProfileSetup ? "/patient/profile?setup=1" : data.role === "doctor" ? "/doctor" : "/patient");
       router.replace(destination);
