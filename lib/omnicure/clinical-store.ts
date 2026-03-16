@@ -551,6 +551,8 @@ export const updatePatientProfile = (
 };
 
 export const registerUser = (input: RegisterInput): { user?: UserRecord; error?: string } => {
+  loadStoreSnapshot();
+
   const normalizedId = input.id.trim();
   const normalizedName = input.name.trim();
   const normalizedEmail = input.email.trim().toLowerCase();
